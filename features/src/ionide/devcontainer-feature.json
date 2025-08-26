@@ -1,0 +1,59 @@
+{
+  "id": "ionide",
+  "version": "1.0.0",
+  "name": "Ionide F# Language Support",
+  "description": "Complete F# development environment for VS Code with Ionide extensions",
+  "documentationURL": "https://ionide.io/",
+  "licenseURL": "https://github.com/ionide/ionide-vscode-fsharp/blob/main/LICENSE",
+  "options": {
+    "enableFSAC": {
+      "type": "boolean",
+      "description": "Enable F# Analyzer & Compiler service",
+      "default": true
+    },
+    "enableTooltips": {
+      "type": "boolean", 
+      "description": "Enable hover tooltips",
+      "default": true
+    },
+    "enableLinting": {
+      "type": "boolean",
+      "description": "Enable F# linting",
+      "default": true
+    },
+    "enableCodeLens": {
+      "type": "boolean",
+      "description": "Enable code lens features",
+      "default": true
+    },
+    "enablePaketIntegration": {
+      "type": "boolean",
+      "description": "Install Ionide-Paket extension for Paket integration",
+      "default": true
+    },
+    "enableFakeIntegration": {
+      "type": "boolean",
+      "description": "Install Ionide-FAKE extension for FAKE build integration", 
+      "default": true
+    }
+  },
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/dotnet"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Ionide.Ionide-fsharp",
+        "ms-dotnettools.csharp"
+      ],
+      "settings": {
+        "FSharp.enableLSP": true,
+        "FSharp.suggestGitignore": false,
+        "FSharp.enableTreeView": true,
+        "FSharp.showExplorerIcon": true,
+        "FSharp.enableBackgroundServices": true,
+        "editor.semanticHighlighting.enabled": true
+      }
+    }
+  }
+}

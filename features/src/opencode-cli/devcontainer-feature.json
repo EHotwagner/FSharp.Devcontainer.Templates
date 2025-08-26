@@ -1,0 +1,57 @@
+{
+  "id": "opencode-cli",
+  "version": "1.0.0",
+  "name": "OpenCode AI Assistant",
+  "description": "Integration with opencode.ai Claude-powered development assistant",
+  "documentationURL": "https://opencode.ai/",
+  "licenseURL": "https://opencode.ai/terms",
+  "options": {
+    "version": {
+      "type": "string",
+      "description": "OpenCode version to install",
+      "default": "latest",
+      "proposals": ["latest", "1.0.0", "0.9.0"]
+    },
+    "enableVSCodeIntegration": {
+      "type": "boolean",
+      "description": "Install VS Code extension",
+      "default": true
+    },
+    "autoAuthenticate": {
+      "type": "boolean",
+      "description": "Prompt for auth on startup",
+      "default": false
+    },
+    "installMethod": {
+      "type": "string",
+      "description": "Installation method",
+      "default": "npm",
+      "proposals": ["npm", "binary", "curl"]
+    },
+    "enableContextSharing": {
+      "type": "boolean",
+      "description": "Enable context sharing with AI assistant",
+      "default": true
+    },
+    "configureGitIntegration": {
+      "type": "boolean",
+      "description": "Configure git hooks for OpenCode",
+      "default": false
+    }
+  },
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/node"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "opencode.opencode-vscode"
+      ],
+      "settings": {
+        "opencode.enableAutoCompletion": true,
+        "opencode.enableCodeAnalysis": true,
+        "opencode.contextSharing": true
+      }
+    }
+  }
+}

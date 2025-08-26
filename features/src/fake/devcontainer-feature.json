@@ -1,0 +1,58 @@
+{
+  "id": "fake",
+  "version": "1.0.0",
+  "name": "FAKE F# Build System",
+  "description": "F# domain-specific language for build tasks and automation with Paket integration",
+  "documentationURL": "https://fake.build/",
+  "licenseURL": "https://github.com/fsharp/FAKE/blob/master/License.txt",
+  "options": {
+    "version": {
+      "type": "string",
+      "description": "FAKE version to install",
+      "default": "latest",
+      "proposals": ["latest", "6.0.0", "5.23.1", "5.23.0"]
+    },
+    "createTemplate": {
+      "type": "boolean",
+      "description": "Generate sample build.fsx template",
+      "default": true
+    },
+    "enableModules": {
+      "type": "boolean",
+      "description": "Include common FAKE modules in template",
+      "default": true
+    },
+    "includeTargets": {
+      "type": "string",
+      "description": "Predefined build targets to include",
+      "default": "Clean,Build,Test",
+      "proposals": ["Clean,Build,Test", "Clean,Build,Test,Package", "Clean,Restore,Build,Test,Pack,Publish"]
+    },
+    "enablePaketIntegration": {
+      "type": "boolean",
+      "description": "Configure FAKE with Paket dependency management",
+      "default": true
+    },
+    "enableDotNetIntegration": {
+      "type": "boolean",
+      "description": "Include .NET CLI integration helpers",
+      "default": true
+    }
+  },
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/dotnet"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Ionide.Ionide-FAKE"
+      ],
+      "settings": {
+        "files.associations": {
+          "*.fsx": "fsharp",
+          "build.fsx": "fsharp"
+        }
+      }
+    }
+  }
+}

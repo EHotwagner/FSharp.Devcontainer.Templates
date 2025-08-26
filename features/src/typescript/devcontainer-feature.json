@@ -1,0 +1,76 @@
+{
+  "id": "typescript",
+  "version": "1.0.0",
+  "name": "TypeScript Development Support",
+  "description": "TypeScript development environment for F# developers working with Fable and JavaScript interop",
+  "documentationURL": "https://www.typescriptlang.org/",
+  "licenseURL": "https://github.com/microsoft/TypeScript/blob/main/LICENSE.txt",
+  "options": {
+    "version": {
+      "type": "string",
+      "description": "TypeScript version to install",
+      "default": "latest",
+      "proposals": ["latest", "5.3.3", "5.2.2", "5.1.6"]
+    },
+    "enableESLint": {
+      "type": "boolean",
+      "description": "Install and configure ESLint",
+      "default": true
+    },
+    "enablePrettier": {
+      "type": "boolean",
+      "description": "Install and configure Prettier",
+      "default": true
+    },
+    "nodeVersion": {
+      "type": "string",
+      "description": "Node.js version for TypeScript projects",
+      "default": "18-lts",
+      "proposals": ["18-lts", "20-lts", "latest"]
+    },
+    "packageManager": {
+      "type": "string",
+      "description": "Package manager choice",
+      "default": "npm",
+      "proposals": ["npm", "yarn", "pnpm"]
+    },
+    "enableStrict": {
+      "type": "boolean",
+      "description": "Use strict TypeScript configuration",
+      "default": true
+    },
+    "includeFableTypes": {
+      "type": "boolean",
+      "description": "Install Fable-specific type definitions",
+      "default": true
+    },
+    "configTemplate": {
+      "type": "string",
+      "description": "TypeScript config template",
+      "default": "fable",
+      "proposals": ["standard", "fable", "node", "react"]
+    }
+  },
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/node"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.vscode-typescript-next",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+      ],
+      "settings": {
+        "typescript.preferences.includePackageJsonAutoImports": "on",
+        "typescript.suggest.autoImports": true,
+        "typescript.updateImportsOnFileMove.enabled": "always",
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": true
+        }
+      }
+    }
+  }
+}

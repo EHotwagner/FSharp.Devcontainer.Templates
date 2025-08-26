@@ -2,22 +2,42 @@
   "id": "fantomas",
   "version": "1.0.0",
   "name": "Fantomas F# Formatter",
-  "description": "Installs Fantomas F# code formatter as a global .NET tool",
+  "description": "Installs Fantomas F# code formatter as a global .NET tool with VS Code integration",
   "documentationURL": "https://github.com/fsprojects/fantomas",
+  "licenseURL": "https://github.com/fsprojects/fantomas/blob/main/LICENSE.md",
   "options": {
     "version": {
       "type": "string",
       "description": "Version of Fantomas to install",
       "default": "latest",
-      "proposals": ["latest", "6.3.9", "6.3.8", "6.3.7"]
+      "proposals": ["latest", "7.0.3", "6.3.9", "6.3.8"]
     },
     "enableEditorConfig": {
       "type": "boolean",
       "description": "Create a basic .editorconfig file for F# formatting",
       "default": true
+    },
+    "formatOnSave": {
+      "type": "boolean", 
+      "description": "Configure VS Code to format F# files on save",
+      "default": true
+    },
+    "maxLineLength": {
+      "type": "string",
+      "description": "Maximum line length for formatting",
+      "default": "120",
+      "proposals": ["80", "100", "120", "140"]
     }
   },
   "installsAfter": [
     "ghcr.io/devcontainers/features/dotnet"
-  ]
+  ],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "Ionide.Ionide-fsharp"
+      }
+    }
+  }
 }

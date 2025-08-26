@@ -1,9 +1,10 @@
 {
   "id": "paket",
-  "version": "1.0.0",
+  "version": "1.0.0", 
   "name": "Paket Package Manager",
-  "description": "Installs Paket package manager for F# projects as alternative to NuGet",
+  "description": "Installs Paket package manager for F# projects with FSI integration and dependency management",
   "documentationURL": "https://fsprojects.github.io/Paket/",
+  "licenseURL": "https://github.com/fsprojects/Paket/blob/master/LICENSE.txt",
   "options": {
     "version": {
       "type": "string",
@@ -11,13 +12,44 @@
       "default": "latest",
       "proposals": ["latest", "8.0.3", "8.0.2", "8.0.1"]
     },
-    "createTemplate": {
-      "type": "boolean", 
-      "description": "Create paket.dependencies template file",
+    "enableAutoRestore": {
+      "type": "boolean",
+      "description": "Enable automatic package restore on build",
+      "default": true
+    },
+    "createBootstrapper": {
+      "type": "boolean",
+      "description": "Include paket.bootstrapper.exe for self-contained projects",
       "default": false
+    },
+    "initializeRepo": {
+      "type": "boolean",
+      "description": "Run paket init on container creation for new projects",
+      "default": false
+    },
+    "enableFSIIntegration": {
+      "type": "boolean",
+      "description": "Configure Paket for F# Interactive (FSI) package loading",
+      "default": true
+    },
+    "generateLoadScripts": {
+      "type": "boolean",
+      "description": "Generate .fsx load scripts for project dependencies",
+      "default": true
     }
   },
   "installsAfter": [
     "ghcr.io/devcontainers/features/dotnet"
-  ]
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Ionide.Ionide-Paket"
+      ],
+      "settings": {
+        "paket.autoShow": true,
+        "paket.enableLSP": true
+      }
+    }
+  }
 }
