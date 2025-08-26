@@ -12,14 +12,13 @@ This repository's purpose: build and refine reusable Devcontainer templates (pri
 ## Recommended Template Components
 - devcontainer-template.json (metadata & options).
 - .devcontainer/devcontainer.json (features, extensions, postCreate hooks).
-- Dockerfile (base image pinning, tool installation, non-root user setup).
 - scripts/ (post-create, dependency install, validation utilities).
-- src/ sample projects (e.g., minimal F# console app, optional ASP.NET template usage).
+- Sample projects demonstrating usage (e.g., minimal F# console app, ASP.NET Core web app).
 
 ## Development Workflow (Agent Actions)
 1. Design / update template structure (align with Research/DevcontainerTemplates.md guidance).
 2. Add or adjust options (dotnetVersion, includeAspNetCore, includeFantomas, etc.).
-3. Optimize Dockerfile (layer ordering, caching, minimal image size, security: non-root, pinned versions).
+3. Configure features list (use official dotnet feature as base, add custom features as needed).
 4. Update VS Code extension list (C#, Ionide, test explorer, formatting tools).
 5. Add / refine post-create script (restore, create sample project, install templates, set hooks).
 6. Validate template with `devcontainer templates validate` (document command usage—actual execution may depend on environment tooling availability).
@@ -27,9 +26,9 @@ This repository's purpose: build and refine reusable Devcontainer templates (pri
 8. Version and prepare for publishing (semantic version tags once repository matures).
 
 ## Code & Config Style
-- Pin explicit versions (avoid `latest`).
-- Keep Dockerfile ARGs for configurable aspects; pass via template options.
-- Prefer official Microsoft .NET images (mcr.microsoft.com/dotnet/sdk:x.y). Track new SDK releases using online research before updating.
+- Pin explicit versions (avoid `latest` in production templates).
+- Use feature-based approach with the official devcontainers/features/dotnet as base dependency.
+- Prefer .NET SDK 8.0 (current LTS version). Track new SDK releases using online research before updating.
 - Keep scripts idempotent (safe on re-run). Use checks before installing or generating.
 - Provide informative echo statements in scripts (plain UTF-8, minimal emojis for portability).
 
@@ -43,7 +42,7 @@ When researching, capture source URL and date accessed inside commit messages or
 ## Quality Checklist Before Committing
 - Metadata file validates (well-formed JSON, required fields present: id, version, name, description, options).
 - devcontainer.json: features resolve, extension IDs valid, postCreateCommand path correct.
-- Dockerfile builds logically (ARG usage matches devcontainer.json build args).
+- Feature install scripts are implemented and functional.
 - Scripts executable (add `chmod +x` note if needed) and shell-safe (`set -euo pipefail` recommended for future hardening).
 - Sample F# project builds (`dotnet build`) and runs (`dotnet run`) inside container (document expected commands even if not executed here).
 - Documentation references correct template IDs and option keys.
@@ -67,11 +66,11 @@ When researching, capture source URL and date accessed inside commit messages or
 Use conventional, purpose-driven phrasing focusing on why:
 - feat(template): add Fantomas option for F# formatting
 - feat(feature): add paket package manager feature
-- chore(docker): pin SDK to 8.0.2 for security patch
+- chore(deps): pin .NET SDK to 8.0 for stability
 - docs: clarify template apply vs container startup sequence
 
 Include research note lines when external version info prompts a change:
-- research: confirmed .NET 8.0.2 release (MS release notes URL)
+- research: confirmed .NET 8.0 as current LTS (MS release notes URL)
 
 ## Safety & Security
 - Avoid embedding secrets or tokens in templates or scripts.

@@ -12,13 +12,13 @@ Create a new F# project in seconds:
 
 ```bash
 # Minimal F# console application
-devcontainer templates apply ghcr.io/ehotwagner/fsharp.devcontainer.templates/fsharp-minimal
+devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-minimal
 
 # ASP.NET Core F# web application  
-devcontainer templates apply ghcr.io/ehotwagner/fsharp.devcontainer.templates/aspnet-fsharp
+devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/aspnet-fsharp
 
 # Full-featured F# development environment
-devcontainer templates apply ghcr.io/ehotwagner/fsharp.devcontainer.templates/fsharp-full
+devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-full
 ```
 
 ### Using Individual Features
@@ -28,9 +28,9 @@ Add specific tools to your existing devcontainer:
 ```json
 {
   "features": {
-    "ghcr.io/ehotwagner/fsharp.devcontainer.templates/features/fantomas:1": {},
-    "ghcr.io/ehotwagner/fsharp.devcontainer.templates/features/paket:1": {},
-    "ghcr.io/ehotwagner/fsharp.devcontainer.templates/features/fake:1": {}
+    "ghcr.io/EHotwagner/fsharp.devcontainer.templates/features/fantomas:1": {},
+    "ghcr.io/EHotwagner/fsharp.devcontainer.templates/features/paket:1": {},
+    "ghcr.io/EHotwagner/fsharp.devcontainer.templates/features/fake:1": {}
   }
 }
 ```
@@ -69,7 +69,7 @@ Perfect for getting started with F#:
 ```bash
 mkdir my-fsharp-app
 cd my-fsharp-app
-devcontainer templates apply ghcr.io/ehotwagner/fsharp.devcontainer.templates/fsharp-minimal
+devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-minimal
 
 # Generates:
 # ├── src/
@@ -86,7 +86,7 @@ Full-stack web development:
 ```bash
 mkdir my-web-app
 cd my-web-app
-devcontainer templates apply ghcr.io/ehotwagner/fsharp.devcontainer.templates/aspnet-fsharp
+devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/aspnet-fsharp
 
 # Generates:
 # ├── src/
@@ -108,7 +108,7 @@ Enterprise-ready development environment:
 ```bash
 mkdir my-enterprise-app
 cd my-enterprise-app
-devcontainer templates apply ghcr.io/ehotwagner/fsharp.devcontainer.templates/fsharp-full
+devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-full
 
 # Generates:
 # ├── src/
@@ -135,7 +135,7 @@ All templates support extensive customization through options:
 
 ### F# Minimal Options
 ```bash
-devcontainer templates apply ghcr.io/ehotwagner/fsharp.devcontainer.templates/fsharp-minimal \
+devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-minimal \
   --option dotnetVersion=9.0 \
   --option includeFantomas=true \
   --option includePaket=false
@@ -143,7 +143,7 @@ devcontainer templates apply ghcr.io/ehotwagner/fsharp.devcontainer.templates/fs
 
 ### ASP.NET F# Options
 ```bash
-devcontainer templates apply ghcr.io/ehotwagner/fsharp.devcontainer.templates/aspnet-fsharp \
+devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/aspnet-fsharp \
   --option webFramework=giraffe \
   --option includeDatabase=true \
   --option includeOpenApi=true
@@ -151,7 +151,7 @@ devcontainer templates apply ghcr.io/ehotwagner/fsharp.devcontainer.templates/as
 
 ### F# Full Options
 ```bash
-devcontainer templates apply ghcr.io/ehotwagner/fsharp.devcontainer.templates/fsharp-full \
+devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-full \
   --option projectType=mixed \
   --option buildSystem=fake \
   --option packageManager=paket \
@@ -167,11 +167,11 @@ Add any feature to your existing devcontainer:
 ```json
 {
   "features": {
-    "ghcr.io/ehotwagner/fsharp.devcontainer.templates/features/fantomas:1": {
+    "ghcr.io/EHotwagner/fsharp.devcontainer.templates/features/fantomas:1": {
       "version": "latest",
       "enableEditorConfig": true
     },
-    "ghcr.io/ehotwagner/fsharp.devcontainer.templates/features/paket:1": {
+    "ghcr.io/EHotwagner/fsharp.devcontainer.templates/features/paket:1": {
       "autoRestore": true,
       "enableFsiIntegration": true
     }
@@ -202,8 +202,8 @@ Common feature combinations for different scenarios:
 {
   "features": {
     "ghcr.io/devcontainers/features/dotnet:2": {"version": "8.0"},
-    "ghcr.io/ehotwagner/fsharp.devcontainer.templates/features/ionide:1": {},
-    "ghcr.io/ehotwagner/fsharp.devcontainer.templates/features/fantomas:1": {}
+    "ghcr.io/EHotwagner/fsharp.devcontainer.templates/features/ionide:1": {},
+    "ghcr.io/EHotwagner/fsharp.devcontainer.templates/features/fantomas:1": {}
   }
 }
 ```
@@ -213,9 +213,9 @@ Common feature combinations for different scenarios:
 {
   "features": {
     "ghcr.io/devcontainers/features/dotnet:2": {"version": "8.0"},
-    "ghcr.io/ehotwagner/fsharp.devcontainer.templates/features/aspnet-core:1": {"enableHttps": true},
-    "ghcr.io/ehotwagner/fsharp.devcontainer.templates/features/ionide:1": {},
-    "ghcr.io/ehotwagner/fsharp.devcontainer.templates/features/fantomas:1": {}
+    "ghcr.io/EHotwagner/fsharp.devcontainer.templates/features/aspnet-core:1": {"enableHttps": true},
+    "ghcr.io/EHotwagner/fsharp.devcontainer.templates/features/ionide:1": {},
+    "ghcr.io/EHotwagner/fsharp.devcontainer.templates/features/fantomas:1": {}
   }
 }
 ```
@@ -225,12 +225,12 @@ Common feature combinations for different scenarios:
 {
   "features": {
     "ghcr.io/devcontainers/features/dotnet:2": {"version": "8.0"},
-    "ghcr.io/ehotwagner/fsharp.devcontainer.templates/features/ionide:1": {},
-    "ghcr.io/ehotwagner/fsharp.devcontainer.templates/features/fantomas:1": {},
-    "ghcr.io/ehotwagner/fsharp.devcontainer.templates/features/paket:1": {"autoRestore": true},
-    "ghcr.io/ehotwagner/fsharp.devcontainer.templates/features/fake:1": {"installTemplates": true},
-    "ghcr.io/ehotwagner/fsharp.devcontainer.templates/features/fsharp-testing:1": {},
-    "ghcr.io/ehotwagner/fsharp.devcontainer.templates/features/opencode-cli:1": {}
+    "ghcr.io/EHotwagner/fsharp.devcontainer.templates/features/ionide:1": {},
+    "ghcr.io/EHotwagner/fsharp.devcontainer.templates/features/fantomas:1": {},
+    "ghcr.io/EHotwagner/fsharp.devcontainer.templates/features/paket:1": {"autoRestore": true},
+    "ghcr.io/EHotwagner/fsharp.devcontainer.templates/features/fake:1": {"installTemplates": true},
+    "ghcr.io/EHotwagner/fsharp.devcontainer.templates/features/fsharp-testing:1": {},
+    "ghcr.io/EHotwagner/fsharp.devcontainer.templates/features/opencode-cli:1": {}
   }
 }
 ```
@@ -242,7 +242,7 @@ Common feature combinations for different scenarios:
 1. **Start with a template**:
    ```bash
    mkdir my-project && cd my-project
-   devcontainer templates apply ghcr.io/ehotwagner/fsharp.devcontainer.templates/fsharp-minimal
+   devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-minimal
    ```
 
 2. **Open in VS Code**:
@@ -264,8 +264,8 @@ Common feature combinations for different scenarios:
    ```json
    {
      "features": {
-       "ghcr.io/ehotwagner/fsharp.devcontainer.templates/features/paket:1": {},
-       "ghcr.io/ehotwagner/fsharp.devcontainer.templates/features/fake:1": {}
+       "ghcr.io/EHotwagner/fsharp.devcontainer.templates/features/paket:1": {},
+       "ghcr.io/EHotwagner/fsharp.devcontainer.templates/features/fake:1": {}
      }
    }
    ```
@@ -335,10 +335,10 @@ find . -name "*.json" -exec python3 -m json.tool {} \;
 
 ```bash
 # Publish features to GitHub Container Registry
-devcontainer features publish ./features/src/* oci://ghcr.io/ehotwagner/fsharp.devcontainer.templates/features
+devcontainer features publish ./features/src/* oci://ghcr.io/EHotwagner/fsharp.devcontainer.templates/features
 
 # Publish templates to GitHub Container Registry  
-devcontainer templates publish ./templates/src/* oci://ghcr.io/ehotwagner/fsharp.devcontainer.templates
+devcontainer templates publish ./templates/src/* oci://ghcr.io/EHotwagner/fsharp.devcontainer.templates
 ```
 
 ### Contributing Guidelines
@@ -411,7 +411,7 @@ Modify templates for your organization:
    - Modify VS Code settings and extensions
 3. **Publish to your registry**:
    ```bash
-   devcontainer templates publish ./templates/src/* oci://ghcr.io/ehotwagner/fsharp.devcontainer.templates
+   devcontainer templates publish ./templates/src/* oci://ghcr.io/EHotwagner/fsharp.devcontainer.templates
    ```
 
 ### CI/CD Integration
@@ -431,7 +431,7 @@ jobs:
       - name: Setup devcontainer
         uses: devcontainers/ci@v0.3
         with:
-          imageName: ghcr.io/ehotwagner/fsharp.devcontainer.templates
+          imageName: ghcr.io/EHotwagner/fsharp.devcontainer.templates
           runCmd: |
             dotnet test
             fake build
@@ -497,7 +497,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ```bash
 mkdir my-fsharp-project
 cd my-fsharp-project
-devcontainer templates apply ghcr.io/ehotwagner/fsharp.devcontainer.templates/fsharp-minimal
+devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-minimal
 code .
 ```
 
