@@ -2,8 +2,8 @@
   "id": "opencode-cli",
   "version": "1.0.0",
   "name": "OpenCode AI Assistant",
-  "description": "Integration with opencode.ai Claude-powered development assistant",
-  "documentationURL": "https://opencode.ai/",
+  "description": "Official OpenCode AI assistant for AI-powered code completion, analysis, and development workflows",
+  "documentationURL": "https://opencode.ai/docs/",
   "licenseURL": "https://opencode.ai/terms",
   "options": {
     "version": {
@@ -24,9 +24,9 @@
     },
     "installMethod": {
       "type": "string",
-      "description": "Installation method",
-      "default": "npm",
-      "proposals": ["npm", "binary", "curl"]
+      "description": "Installation method to use",
+      "default": "official",
+      "proposals": ["official", "npm", "homebrew", "binary"]
     },
     "enableContextSharing": {
       "type": "boolean",

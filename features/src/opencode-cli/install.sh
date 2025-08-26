@@ -9,7 +9,7 @@ set -euo pipefail
 OPENCODE_VERSION=${VERSION:-"latest"}
 ENABLE_VSCODE_INTEGRATION=${ENABLEVSCODEINTEGRATION:-"true"}
 AUTO_AUTHENTICATE=${AUTOAUTHENTICATE:-"false"}
-INSTALL_METHOD=${INSTALLMETHOD:-"npm"}
+INSTALL_METHOD=${INSTALLMETHOD:-"official"}
 ENABLE_CONTEXT_SHARING=${ENABLECONTEXTSHARING:-"true"}
 CONFIGURE_GIT_INTEGRATION=${CONFIGUREGITINTEGRATION:-"false"}
 
@@ -27,12 +27,26 @@ validate_environment() {
             fi
             echo "✅ npm found: $(npm --version)"
             ;;
-        "binary"|"curl")
+        "official"|"curl")
+            if ! command -v curl >/dev/null 2>&1; then
+                echo "❌ curl not found. Please install curl for installation."
+                exit 1
+            fi
+            echo "✅ curl found for installation"
+            ;;
+        "binary")
             if ! command -v curl >/dev/null 2>&1; then
                 echo "❌ curl not found. Please install curl for binary installation."
                 exit 1
             fi
             echo "✅ curl found for binary installation"
+            ;;
+        "homebrew"|"brew")
+            if ! command -v brew >/dev/null 2>&1; then
+                echo "❌ Homebrew not found. Please install Homebrew first."
+                exit 1
+            fi
+            echo "✅ Homebrew found: $(brew --version | head -1)"
             ;;
     esac
 }
@@ -44,13 +58,40 @@ install_opencode() {
         "npm")
             install_via_npm
             ;;
+        "official"|"curl")
+            install_via_curl
+            ;;
         "binary")
             install_via_binary
             ;;
-        "curl")
+        "homebrew"|"brew")
+            install_via_homebrew
+            ;;
+        *)
+            echo "⚠️ Unknown install method: $INSTALL_METHOD, trying official script..."
             install_via_curl
             ;;
     esac
+}
+
+install_via_homebrew() {
+    echo "🍺 Installing OpenCode via Homebrew..."
+    
+    # Add the SST tap if not already added
+    if ! brew tap | grep -q "sst/tap"; then
+        echo "📦 Adding SST tap..."
+        brew tap sst/tap
+    fi
+    
+    # Install OpenCode
+    if brew install sst/tap/opencode; then
+        echo "✅ OpenCode installed successfully via Homebrew"
+        return 0
+    else
+        echo "⚠️ Homebrew installation failed, trying alternative method..."
+        install_via_curl
+        return $?
+    fi
 }
 
 install_via_npm() {
@@ -58,53 +99,106 @@ install_via_npm() {
     
     case "$OPENCODE_VERSION" in
         "latest")
-            npm install -g @opencode/cli || echo "⚠️ OpenCode CLI not available in npm registry yet"
+            if npm install -g opencode-ai; then
+                echo "✅ OpenCode installed successfully via npm"
+                return 0
+            else
+                echo "⚠️ npm installation failed, trying official install script..."
+                install_via_curl
+                return $?
+            fi
             ;;
         *)
-            npm install -g "@opencode/cli@${OPENCODE_VERSION}" || echo "⚠️ OpenCode CLI not available in npm registry yet"
+            if npm install -g "opencode-ai@${OPENCODE_VERSION}"; then
+                echo "✅ OpenCode installed successfully via npm"
+                return 0
+            else
+                echo "⚠️ npm installation failed, trying official install script..."
+                install_via_curl
+                return $?
+            fi
             ;;
     esac
-    
-    # Fallback: Create a mock installation for development
-    create_mock_cli
 }
 
 install_via_binary() {
     echo "📥 Installing OpenCode via binary download..."
     
-    # Determine architecture
+    # Determine architecture and OS
     ARCH=$(uname -m)
     OS=$(uname -s | tr '[:upper:]' '[:lower:]')
     
     case "$ARCH" in
         "x86_64") ARCH="x64" ;;
         "aarch64"|"arm64") ARCH="arm64" ;;
-        *) echo "⚠️ Unsupported architecture: $ARCH"; ARCH="x64" ;;
+        *) echo "⚠️ Unsupported architecture: $ARCH"; return 1 ;;
     esac
     
-    # Download binary (mock URL for development)
-    DOWNLOAD_URL="https://github.com/opencode-ai/cli/releases/latest/download/opencode-${OS}-${ARCH}"
+    # Get latest release info from GitHub
+    echo "🔍 Fetching latest release information..."
+    LATEST_URL="https://api.github.com/repos/sst/opencode/releases/latest"
+    
+    if command -v jq >/dev/null 2>&1; then
+        # Use jq if available for proper JSON parsing
+        DOWNLOAD_URL=$(curl -s "$LATEST_URL" | jq -r ".assets[] | select(.name | contains(\"$OS\") and contains(\"$ARCH\")) | .browser_download_url" | head -1)
+    else
+        # Fallback without jq
+        DOWNLOAD_URL="https://github.com/sst/opencode/releases/latest/download/opencode-${OS}-${ARCH}"
+    fi
+    
+    if [ -z "$DOWNLOAD_URL" ] || [ "$DOWNLOAD_URL" = "null" ]; then
+        echo "⚠️ Could not determine download URL for $OS-$ARCH"
+        # Create fallback mock CLI
+        create_mock_cli
+        return $?
+    fi
     
     echo "📥 Downloading from: $DOWNLOAD_URL"
-    if curl -L "$DOWNLOAD_URL" -o /tmp/opencode 2>/dev/null; then
+    if curl -L "$DOWNLOAD_URL" -o /tmp/opencode && [ -s /tmp/opencode ]; then
         chmod +x /tmp/opencode
-        sudo mv /tmp/opencode /usr/local/bin/opencode
-        echo "✅ OpenCode binary installed"
+        
+        # Try to install to /usr/local/bin, fallback to user directory
+        if sudo mv /tmp/opencode /usr/local/bin/opencode 2>/dev/null; then
+            echo "✅ OpenCode binary installed to /usr/local/bin/opencode"
+        elif mkdir -p "$HOME/.local/bin" && mv /tmp/opencode "$HOME/.local/bin/opencode"; then
+            echo "✅ OpenCode binary installed to $HOME/.local/bin/opencode"
+            echo "💡 Add $HOME/.local/bin to PATH if not already present"
+        else
+            echo "❌ Failed to install binary"
+            create_mock_cli
+            return $?
+        fi
+        
+        return 0
     else
-        echo "⚠️ Binary download failed, creating mock CLI"
+        echo "⚠️ Binary download failed, creating development CLI"
         create_mock_cli
+        return $?
     fi
 }
 
 install_via_curl() {
-    echo "📥 Installing OpenCode via curl script..."
+    echo "📥 Installing OpenCode via official install script..."
     
-    # Mock installation script
-    if curl -fsSL https://opencode.ai/install.sh 2>/dev/null | bash; then
-        echo "✅ OpenCode installed via curl script"
+    # Use the official installation script
+    if curl -fsSL https://opencode.ai/install | bash; then
+        echo "✅ OpenCode installed successfully via official script"
+        return 0
     else
-        echo "⚠️ Curl installation failed, creating mock CLI"
-        create_mock_cli
+        echo "⚠️ Official install script failed, trying alternative methods..."
+        
+        # Try Homebrew if available
+        if command -v brew >/dev/null 2>&1; then
+            echo "🍺 Trying Homebrew installation..."
+            if brew install sst/tap/opencode; then
+                echo "✅ OpenCode installed successfully via Homebrew"
+                return 0
+            fi
+        fi
+        
+        # Try binary download as last resort
+        install_via_binary
+        return $?
     fi
 }
 
