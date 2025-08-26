@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "name": "ASP.NET Core F# Web Application",
   "description": "A complete F# web development environment with ASP.NET Core, Giraffe framework, and modern development tools. Perfect for building web APIs and applications with F#.",
-  "documentationURL": "https://github.com/your-org/devcontainer-templates/tree/main/src/aspnet-fsharp",
-  "licenseURL": "https://github.com/your-org/devcontainer-templates/blob/main/LICENSE",
+  "documentationURL": "https://github.com/EHotwagner/FSharp.Devcontainer.Templates/tree/main/templates/src/aspnet-fsharp",
+  "licenseURL": "https://github.com/EHotwagner/FSharp.Devcontainer.Templates/blob/main/LICENSE",
   "options": {
     "dotnetVersion": {
       "type": "string",

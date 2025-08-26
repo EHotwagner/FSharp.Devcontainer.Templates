@@ -1,7 +1,7 @@
 {
-  "name": ".NET and F# Development Containers",
+  "name": "F# Devcontainer Templates",
   "description": "A comprehensive collection of devcontainer features and templates for .NET and F# development, providing modern tooling and best practices for building applications.",
-  "url": "https://github.com/your-org/devcontainer-templates",
+  "url": "https://github.com/EHotwagner/FSharp.Devcontainer.Templates",
   "features": [
     {
       "id": "aspnet-core",

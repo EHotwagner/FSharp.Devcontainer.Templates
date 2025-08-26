@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "name": "F# Full Development Environment",
   "description": "A comprehensive F# development environment with all tools included: FAKE build automation, Paket package management, testing frameworks, web development, and AI assistance. Perfect for complex F# projects.",
-  "documentationURL": "https://github.com/your-org/devcontainer-templates/tree/main/src/fsharp-full",
-  "licenseURL": "https://github.com/your-org/devcontainer-templates/blob/main/LICENSE",
+  "documentationURL": "https://github.com/EHotwagner/FSharp.Devcontainer.Templates/tree/main/templates/src/fsharp-full",
+  "licenseURL": "https://github.com/EHotwagner/FSharp.Devcontainer.Templates/blob/main/LICENSE",
   "options": {
     "dotnetVersion": {
       "type": "string",
