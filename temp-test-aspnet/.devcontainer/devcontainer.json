@@ -1,0 +1,65 @@
+{
+  "name": "ASP.NET Core F# Development",
+  "image": "mcr.microsoft.com/devcontainers/dotnet:1-${templateOption:dotnetVersion}-jammy",
+  
+  "features": {
+    "../../features/src/aspnet-core": {
+      "enableHttps": true,
+      "installEfTools": "${templateOption:includeDatabase}"
+    },
+    "../../features/src/ionide": {},
+    "../../features/src/fantomas": {
+      "installConditions": ["${templateOption:includeFantomas}"]
+    },
+    "../../features/src/paket": {
+      "installConditions": ["${templateOption:includePaket}"]
+    },
+    "../../features/src/opencode-cli": {
+      "installConditions": ["${templateOption:includeOpenCode}"]
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-dotnettools.csharp",
+        "ionide.ionide-fsharp",
+        "ms-dotnettools.vscode-dotnet-runtime",
+        "ms-vscode.vscode-json",
+        "redhat.vscode-yaml",
+        "ms-vscode.rest-client",
+        "humao.rest-client"
+      ],
+      "settings": {
+        "FSharp.enableTreeView": true,
+        "FSharp.showExplorerOnStartup": true,
+        "FSharp.enableBackgroundServices": true,
+        "editor.formatOnSave": true,
+        "files.autoSave": "afterDelay",
+        "json.format.enable": true,
+        "yaml.format.enable": true
+      }
+    }
+  },
+
+  "postCreateCommand": "bash .devcontainer/scripts/post-create.sh",
+  
+  "forwardPorts": [5000, 5001],
+  "portsAttributes": {
+    "5000": {
+      "label": "HTTP",
+      "protocol": "http"
+    },
+    "5001": {
+      "label": "HTTPS",
+      "protocol": "https"
+    }
+  },
+  
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": true,
+
+  "mounts": [
+    "source=${localWorkspaceFolder}/.devcontainer/scripts,target=/workspace/.devcontainer/scripts,type=bind"
+  ]
+}
