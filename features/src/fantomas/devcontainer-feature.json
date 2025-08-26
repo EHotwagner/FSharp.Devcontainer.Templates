@@ -1,0 +1,23 @@
+{
+  "id": "fantomas",
+  "version": "1.0.0",
+  "name": "Fantomas F# Formatter",
+  "description": "Installs Fantomas F# code formatter as a global .NET tool",
+  "documentationURL": "https://github.com/fsprojects/fantomas",
+  "options": {
+    "version": {
+      "type": "string",
+      "description": "Version of Fantomas to install",
+      "default": "latest",
+      "proposals": ["latest", "6.3.9", "6.3.8", "6.3.7"]
+    },
+    "enableEditorConfig": {
+      "type": "boolean",
+      "description": "Create a basic .editorconfig file for F# formatting",
+      "default": true
+    }
+  },
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/dotnet"
+  ]
+}

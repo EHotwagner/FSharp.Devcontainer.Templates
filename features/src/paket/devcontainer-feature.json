@@ -1,0 +1,23 @@
+{
+  "id": "paket",
+  "version": "1.0.0",
+  "name": "Paket Package Manager",
+  "description": "Installs Paket package manager for F# projects as alternative to NuGet",
+  "documentationURL": "https://fsprojects.github.io/Paket/",
+  "options": {
+    "version": {
+      "type": "string",
+      "description": "Version of Paket to install",
+      "default": "latest",
+      "proposals": ["latest", "8.0.3", "8.0.2", "8.0.1"]
+    },
+    "createTemplate": {
+      "type": "boolean", 
+      "description": "Create paket.dependencies template file",
+      "default": false
+    }
+  },
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/dotnet"
+  ]
+}

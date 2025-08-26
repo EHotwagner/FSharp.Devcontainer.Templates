@@ -48,16 +48,25 @@ When researching, capture source URL and date accessed inside commit messages or
 - Sample F# project builds (`dotnet build`) and runs (`dotnet run`) inside container (document expected commands even if not executed here).
 - Documentation references correct template IDs and option keys.
 
+## Features Development (Combinable Components)
+- Create reusable features in `features/src/` for mix-and-match capability across templates.
+- Each feature should have `devcontainer-feature.json` (metadata + options) and `install.sh` (installation script).
+- Use `dependsOn` / `installsAfter` for feature dependency management.
+- Test features individually: `devcontainer features test ./features/src/feature-name`.
+- Publish features separately for community reuse: `devcontainer features publish`.
+
 ## Expansion Roadmap (Future Tasks)
-- Add testing template (xUnit / Expecto) with code coverage (reportgenerator).
-- Introduce GitHub Actions workflow to lint template JSON and attempt a dry-run build.
-- Add additional language variants (C# focused, minimal runtime, slim test runner) as separate templates (one per tech niche).
-- Add optional feature integration (e.g., Node for full-stack ASP.NET + frontend builds) via additional template options.
+- Add ionide-extensions feature (VS Code F# extensions bundle).
+- Add dotnet-tools feature (global .NET CLI tools: EF, outdated, etc.).
+- Add aspnet-templates feature (web project templates, Giraffe, etc.).
+- Introduce GitHub Actions workflow to lint template/feature JSON and attempt dry-run builds.
+- Add additional language variants (C# focused, minimal runtime, slim test runner) as separate templates.
 - Provide performance metrics (cold build time, container size) in README once measured.
 
 ## Commit Message Guidance
 Use conventional, purpose-driven phrasing focusing on why:
 - feat(template): add Fantomas option for F# formatting
+- feat(feature): add paket package manager feature
 - chore(docker): pin SDK to 8.0.2 for security patch
 - docs: clarify template apply vs container startup sequence
 
@@ -76,20 +85,17 @@ Always:
 - Record date accessed in doc updates for longevity.
 
 ## Minimal Example (Reference)
-(Simplified snippet—full examples in Research/DevcontainerTemplates.md)
+(Simplified snippets—full examples in Research/DevcontainerTemplates.md)
+
+### Template with Features
 ```
 .devcontainer/devcontainer.json
 {
   "name": ".NET F# Template",
-  "build": {
-    "dockerfile": "Dockerfile",
-    "args": {
-      "DOTNET_VERSION": "${templateOption:dotnetVersion}",
-      "INCLUDE_ASPNET": "${templateOption:includeAspNetCore}"
-    }
-  },
   "features": {
-    "ghcr.io/devcontainers/features/dotnet:2": { "version": "${templateOption:dotnetVersion}" }
+    "ghcr.io/devcontainers/features/dotnet:2": { "version": "8.0" },
+    "./features/src/fantomas": { "enableEditorConfig": true },
+    "./features/src/fsharp-testing": { "framework": "xunit", "includeCoverage": true }
   },
   "customizations": { "vscode": { "extensions": ["ms-dotnettools.csharp", "ionide.ionide-fsharp"] } },
   "postCreateCommand": "bash .devcontainer/scripts/post-create.sh",
@@ -97,11 +103,19 @@ Always:
 }
 ```
 
+### Feature Structure
+```
+features/src/fantomas/
+├── devcontainer-feature.json
+└── install.sh
+```
+
 ## Agent Priorities Summary
 1. Maintain template correctness & clarity.
 2. Keep .NET / F# tooling current (using verified research).
-3. Optimize developer experience (speed, formatting, testing).
-4. Document thoroughly and concisely.
-5. Automate validation steps where possible.
+3. Develop reusable features for mix-and-match capability.
+4. Optimize developer experience (speed, formatting, testing).
+5. Document thoroughly and concisely.
+6. Automate validation steps where possible.
 
 Agents should now treat this file as the canonical operational guide for repository contributions.

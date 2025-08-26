@@ -1,0 +1,28 @@
+{
+  "id": "fsharp-testing",
+  "version": "1.0.0",
+  "name": "F# Testing Tools",
+  "description": "Installs F# testing frameworks and code coverage tools",
+  "documentationURL": "https://docs.microsoft.com/en-us/dotnet/fsharp/testing/",
+  "options": {
+    "framework": {
+      "type": "string",
+      "description": "Testing framework to install templates for",
+      "enum": ["xunit", "expecto", "both"],
+      "default": "xunit"
+    },
+    "includeCoverage": {
+      "type": "boolean",
+      "description": "Install code coverage tools (coverlet, reportgenerator)",
+      "default": true
+    },
+    "includePropertyBasedTesting": {
+      "type": "boolean",
+      "description": "Install FsCheck for property-based testing",
+      "default": false
+    }
+  },
+  "dependsOn": {
+    "ghcr.io/devcontainers/features/dotnet": {}
+  }
+}
