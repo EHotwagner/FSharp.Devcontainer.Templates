@@ -1,4 +1,4 @@
-# F# Devcontainer Templates
+# F# Devcontainer Templates (vibecoded beware)
 
 A comprehensive collection of **devcontainer features** and **templates** for modern .NET and F# development. This repository provides everything you need to set up productive F# development environments with all the tools, testing frameworks, and best practices configured out of the box.
 
