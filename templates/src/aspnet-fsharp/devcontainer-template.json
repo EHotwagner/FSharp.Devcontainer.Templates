@@ -1,0 +1,48 @@
+{
+  "id": "aspnet-fsharp",
+  "version": "1.0.0",
+  "name": "ASP.NET Core F# Web Application",
+  "description": "A complete F# web development environment with ASP.NET Core, Giraffe framework, and modern development tools. Perfect for building web APIs and applications with F#.",
+  "documentationURL": "https://github.com/your-org/devcontainer-templates/tree/main/src/aspnet-fsharp",
+  "licenseURL": "https://github.com/your-org/devcontainer-templates/blob/main/LICENSE",
+  "options": {
+    "dotnetVersion": {
+      "type": "string",
+      "proposals": ["8.0", "9.0"],
+      "default": "8.0",
+      "description": ".NET SDK version to install"
+    },
+    "webFramework": {
+      "type": "string",
+      "proposals": ["giraffe", "minimal-api", "mvc"],
+      "default": "giraffe",
+      "description": "Web framework template to use"
+    },
+    "includeDatabase": {
+      "type": "boolean",
+      "default": false,
+      "description": "Include database setup (Entity Framework Core with SQLite)"
+    },
+    "includeOpenApi": {
+      "type": "boolean",
+      "default": true,
+      "description": "Include OpenAPI/Swagger documentation"
+    },
+    "includeFantomas": {
+      "type": "boolean",
+      "default": true,
+      "description": "Include Fantomas F# code formatter"
+    },
+    "includePaket": {
+      "type": "boolean",
+      "default": false,
+      "description": "Include Paket package manager"
+    },
+    "includeOpenCode": {
+      "type": "boolean",
+      "default": false,
+      "description": "Include OpenCode AI development assistant"
+    }
+  },
+  "platforms": ["linux", "darwin", "windows"]
+}

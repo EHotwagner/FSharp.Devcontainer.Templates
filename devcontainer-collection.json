@@ -1,0 +1,107 @@
+{
+  "name": ".NET and F# Development Containers",
+  "description": "A comprehensive collection of devcontainer features and templates for .NET and F# development, providing modern tooling and best practices for building applications.",
+  "url": "https://github.com/your-org/devcontainer-templates",
+  "features": [
+    {
+      "id": "aspnet-core",
+      "name": "ASP.NET Core Development",
+      "description": "Complete ASP.NET Core development environment with HTTPS certificates, Entity Framework tools, and Giraffe framework support for F# web development."
+    },
+    {
+      "id": "fantomas",
+      "name": "Fantomas F# Formatter",
+      "description": "F# code formatter with configurable formatting rules, EditorConfig support, and VS Code integration."
+    },
+    {
+      "id": "fake",
+      "name": "FAKE - F# Build Automation",
+      "description": "F# Make build automation tool with templates, MSBuild integration, and comprehensive task runners for F# projects."
+    },
+    {
+      "id": "fsharp-testing",
+      "name": "F# Testing Frameworks",
+      "description": "Comprehensive F# testing setup with xUnit, FsUnit, test coverage tools, and VS Code test integration."
+    },
+    {
+      "id": "ionide",
+      "name": "Ionide F# Language Support",
+      "description": "Complete F# language support for VS Code with LSP server, syntax highlighting, IntelliSense, and debugging capabilities."
+    },
+    {
+      "id": "opencode-cli",
+      "name": "OpenCode AI Development Assistant",
+      "description": "AI-powered development assistant with multiple model access, code generation, and intelligent project understanding."
+    },
+    {
+      "id": "paket",
+      "name": "Paket Package Manager",
+      "description": "Predictable package management for .NET with dependency resolution, auto-restore, and F# Interactive integration."
+    },
+    {
+      "id": "typescript",
+      "name": "TypeScript Development Environment",
+      "description": "Modern TypeScript development with ESLint, Prettier, Language Server, and Fable type definitions for F# integration."
+    }
+  ],
+  "templates": [
+    {
+      "id": "fsharp-minimal",
+      "name": "F# Minimal Console Application",
+      "description": "A lightweight F# development environment perfect for console applications, learning F#, or small utilities. Includes .NET SDK, Ionide language support, and optional formatting tools.",
+      "platforms": ["linux", "darwin", "windows"],
+      "categories": ["fsharp", "dotnet", "console", "minimal"],
+      "technologies": [".NET", "F#", "Console Application"]
+    },
+    {
+      "id": "aspnet-fsharp",
+      "name": "ASP.NET Core F# Web Application",
+      "description": "A complete F# web development environment with ASP.NET Core, Giraffe framework, and modern development tools. Perfect for building web APIs and applications with F#.",
+      "platforms": ["linux", "darwin", "windows"],
+      "categories": ["fsharp", "dotnet", "web", "api"],
+      "technologies": [".NET", "F#", "ASP.NET Core", "Giraffe", "OpenAPI", "Web API"]
+    },
+    {
+      "id": "fsharp-full",
+      "name": "F# Full Development Environment",
+      "description": "A comprehensive F# development environment with all tools included: FAKE build automation, Paket package management, testing frameworks, web development, and AI assistance. Perfect for complex F# projects and teams.",
+      "platforms": ["linux", "darwin", "windows"],
+      "categories": ["fsharp", "dotnet", "full-stack", "enterprise"],
+      "technologies": [".NET", "F#", "ASP.NET Core", "FAKE", "Paket", "xUnit", "Giraffe", "TypeScript", "OpenCode"]
+    }
+  ],
+  "categories": {
+    "fsharp": {
+      "displayName": "F#",
+      "description": "Functional-first programming language for .NET"
+    },
+    "dotnet": {
+      "displayName": ".NET",
+      "description": "Microsoft .NET development platform"
+    },
+    "console": {
+      "displayName": "Console Application",
+      "description": "Command-line applications and utilities"
+    },
+    "web": {
+      "displayName": "Web Development",
+      "description": "Web applications and APIs"
+    },
+    "api": {
+      "displayName": "REST API",
+      "description": "RESTful web services and APIs"
+    },
+    "minimal": {
+      "displayName": "Minimal Setup",
+      "description": "Lightweight development environments"
+    },
+    "full-stack": {
+      "displayName": "Full Stack",
+      "description": "Complete development environments with all tools"
+    },
+    "enterprise": {
+      "displayName": "Enterprise Ready",
+      "description": "Production-ready setups for complex projects"
+    }
+  }
+}

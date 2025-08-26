@@ -1,0 +1,43 @@
+{
+  "name": "F# Minimal Development",
+  "image": "mcr.microsoft.com/devcontainers/dotnet:1-${templateOption:dotnetVersion}-jammy",
+  
+  "features": {
+    "../../features/src/ionide": {},
+    "../../features/src/fantomas": {
+      "installConditions": ["${templateOption:includeFantomas}"]
+    },
+    "../../features/src/paket": {
+      "installConditions": ["${templateOption:includePaket}"]
+    },
+    "../../features/src/opencode-cli": {
+      "installConditions": ["${templateOption:includeOpenCode}"]
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-dotnettools.csharp",
+        "ionide.ionide-fsharp",
+        "ms-dotnettools.vscode-dotnet-runtime"
+      ],
+      "settings": {
+        "FSharp.enableTreeView": true,
+        "FSharp.showExplorerOnStartup": true,
+        "FSharp.enableBackgroundServices": true,
+        "editor.formatOnSave": true,
+        "files.autoSave": "afterDelay"
+      }
+    }
+  },
+
+  "postCreateCommand": "bash .devcontainer/scripts/post-create.sh",
+  
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": true,
+
+  "mounts": [
+    "source=${localWorkspaceFolder}/.devcontainer/scripts,target=/workspace/.devcontainer/scripts,type=bind"
+  ]
+}

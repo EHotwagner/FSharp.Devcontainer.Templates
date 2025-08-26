@@ -1,0 +1,97 @@
+{
+  "name": "F# Full Development Environment",
+  "image": "mcr.microsoft.com/devcontainers/dotnet:1-${templateOption:dotnetVersion}-jammy",
+  
+  "features": {
+    "../../features/src/aspnet-core": {
+      "enableHttps": true,
+      "installEfTools": "${templateOption:includeDatabase}"
+    },
+    "../../features/src/ionide": {},
+    "../../features/src/fantomas": {},
+    "../../features/src/paket": {
+      "installConditions": ["${templateOption:packageManager}", "paket", "both"],
+      "autoRestore": true,
+      "enableFsiIntegration": true
+    },
+    "../../features/src/fake": {
+      "installConditions": ["${templateOption:buildSystem}", "fake", "both"],
+      "installTemplates": true,
+      "enableMsbuildIntegration": true
+    },
+    "../../features/src/fsharp-testing": {},
+    "../../features/src/typescript": {
+      "installConditions": ["${templateOption:includeTypeScript}"],
+      "includeEslint": true,
+      "includePrettier": true,
+      "includeFableTypes": true
+    },
+    "../../features/src/opencode-cli": {
+      "version": "latest"
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-dotnettools.csharp",
+        "ionide.ionide-fsharp",
+        "ms-dotnettools.vscode-dotnet-runtime",
+        "ms-vscode.vscode-json",
+        "redhat.vscode-yaml",
+        "ms-vscode.rest-client",
+        "humao.rest-client",
+        "ms-vscode.test-adapter-converter",
+        "hbenl.vscode-test-explorer",
+        "formulahendry.dotnet-test-explorer",
+        "bradlc.vscode-tailwindcss",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+      ],
+      "settings": {
+        "FSharp.enableTreeView": true,
+        "FSharp.showExplorerOnStartup": true,
+        "FSharp.enableBackgroundServices": true,
+        "FSharp.enableAnalyzers": true,
+        "FSharp.enableLinting": true,
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": true,
+        "files.autoSave": "afterDelay",
+        "json.format.enable": true,
+        "yaml.format.enable": true,
+        "dotnet-test-explorer.testProjectPath": "**/*Tests.fsproj",
+        "dotnet-test-explorer.enableTelemetry": false,
+        "dotnet-test-explorer.showCodeLens": true
+      }
+    }
+  },
+
+  "postCreateCommand": "bash .devcontainer/scripts/post-create.sh",
+  
+  "forwardPorts": [5000, 5001, 3000, 8080],
+  "portsAttributes": {
+    "5000": {
+      "label": "HTTP",
+      "protocol": "http"
+    },
+    "5001": {
+      "label": "HTTPS", 
+      "protocol": "https"
+    },
+    "3000": {
+      "label": "Frontend Dev Server",
+      "protocol": "http"
+    },
+    "8080": {
+      "label": "Alternative HTTP",
+      "protocol": "http"
+    }
+  },
+  
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": true,
+
+  "mounts": [
+    "source=${localWorkspaceFolder}/.devcontainer/scripts,target=/workspace/.devcontainer/scripts,type=bind"
+  ]
+}

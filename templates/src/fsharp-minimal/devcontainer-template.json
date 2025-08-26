@@ -1,0 +1,32 @@
+{
+  "id": "fsharp-minimal",
+  "version": "1.0.0",
+  "name": "F# Minimal Console Application",
+  "description": "A minimal F# development environment with console application template. Includes .NET SDK, Ionide language support, and optional formatting tools.",
+  "documentationURL": "https://github.com/your-org/devcontainer-templates/tree/main/src/fsharp-minimal",
+  "licenseURL": "https://github.com/your-org/devcontainer-templates/blob/main/LICENSE",
+  "options": {
+    "dotnetVersion": {
+      "type": "string",
+      "proposals": ["8.0", "9.0"],
+      "default": "8.0",
+      "description": ".NET SDK version to install"
+    },
+    "includeFantomas": {
+      "type": "boolean",
+      "default": true,
+      "description": "Include Fantomas F# code formatter"
+    },
+    "includePaket": {
+      "type": "boolean",
+      "default": false,
+      "description": "Include Paket package manager"
+    },
+    "includeOpenCode": {
+      "type": "boolean",
+      "default": false,
+      "description": "Include OpenCode AI development assistant"
+    }
+  },
+  "platforms": ["linux", "darwin", "windows"]
+}

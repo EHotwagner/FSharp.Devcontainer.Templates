@@ -1,0 +1,45 @@
+{
+  "id": "fsharp-full",
+  "version": "1.0.0",
+  "name": "F# Full Development Environment",
+  "description": "A comprehensive F# development environment with all tools included: FAKE build automation, Paket package management, testing frameworks, web development, and AI assistance. Perfect for complex F# projects.",
+  "documentationURL": "https://github.com/your-org/devcontainer-templates/tree/main/src/fsharp-full",
+  "licenseURL": "https://github.com/your-org/devcontainer-templates/blob/main/LICENSE",
+  "options": {
+    "dotnetVersion": {
+      "type": "string",
+      "proposals": ["8.0", "9.0"],
+      "default": "8.0",
+      "description": ".NET SDK version to install"
+    },
+    "projectType": {
+      "type": "string",
+      "proposals": ["console", "library", "web", "mixed"],
+      "default": "mixed",
+      "description": "Type of project structure to create"
+    },
+    "includeDatabase": {
+      "type": "boolean",
+      "default": false,
+      "description": "Include database setup and Entity Framework Core"
+    },
+    "includeTypeScript": {
+      "type": "boolean",
+      "default": false,
+      "description": "Include TypeScript development for F# web applications"
+    },
+    "buildSystem": {
+      "type": "string",
+      "proposals": ["fake", "dotnet", "both"],
+      "default": "fake",
+      "description": "Build system to configure"
+    },
+    "packageManager": {
+      "type": "string",
+      "proposals": ["paket", "nuget", "both"],
+      "default": "paket",
+      "description": "Package management system"
+    }
+  },
+  "platforms": ["linux", "darwin", "windows"]
+}
