@@ -8,34 +8,6 @@ WEB_FRAMEWORK="${WEB_FRAMEWORK:-giraffe}"
 INCLUDE_DATABASE="${INCLUDE_DATABASE:-false}"
 INCLUDE_OPENAPI="${INCLUDE_OPENAPI:-true}"
 
-# Create web application if src directory doesn't exist
-if [ ! -d "src" ]; then
-    echo "📦 Creating ASP.NET Core F# web application..."
-    
-    # Create project structure
-    mkdir -p src
-    cd src
-    
-    case "$WEB_FRAMEWORK" in
-        "giraffe")
-            create_giraffe_app
-            ;;
-        "minimal-api")
-            create_minimal_api_app
-            ;;
-        "mvc")
-            create_mvc_app
-            ;;
-        *)
-            echo "Unknown web framework: $WEB_FRAMEWORK, defaulting to Giraffe"
-            create_giraffe_app
-            ;;
-    esac
-    
-    cd ..
-    echo "✅ Created ASP.NET Core F# web application in src/"
-fi
-
 # Function to create Giraffe-based web app
 create_giraffe_app() {
     # Create project file
@@ -201,9 +173,7 @@ module TodoHandlers =
             }
 
     let indexPage: HttpHandler =
-        fun next ctx ->
-            Pages.index todos
-            |> htmlView next ctx
+        Pages.index todos |> htmlView
 
     let createTodoForm: HttpHandler =
         fun next ctx ->
@@ -303,6 +273,34 @@ create_mvc_app() {
     # Implementation would go here
     create_giraffe_app  # Fallback for now
 }
+
+# Create web application if src directory doesn't exist
+if [ ! -d "src" ]; then
+    echo "📦 Creating ASP.NET Core F# web application..."
+    
+    # Create project structure
+    mkdir -p src
+    cd src
+    
+    case "$WEB_FRAMEWORK" in
+        "giraffe")
+            create_giraffe_app
+            ;;
+        "minimal-api")
+            create_minimal_api_app
+            ;;
+        "mvc")
+            create_mvc_app
+            ;;
+        *)
+            echo "Unknown web framework: $WEB_FRAMEWORK, defaulting to Giraffe"
+            create_giraffe_app
+            ;;
+    esac
+    
+    cd ..
+    echo "✅ Created ASP.NET Core F# web application in src/"
+fi
 
 # Create appsettings files
 if [ ! -f "src/appsettings.json" ]; then

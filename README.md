@@ -1,4 +1,4 @@
-# F# Devcontainer Templates (vibecoded beware)
+# F# Devcontainer Templates
 
 A comprehensive collection of **devcontainer features** and **templates** for modern .NET and F# development. This repository provides everything you need to set up productive F# development environments with all the tools, testing frameworks, and best practices configured out of the box.
 
@@ -11,14 +11,58 @@ A comprehensive collection of **devcontainer features** and **templates** for mo
 Create a new F# project in seconds:
 
 ```bash
+# Create a directory for your project
+mkdir my-fsharp-project
+cd my-fsharp-project
+
 # Minimal F# console application
-devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-minimal
+devcontainer templates apply -t ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-minimal
 
 # ASP.NET Core F# web application  
-devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/aspnet-fsharp
+devcontainer templates apply -t ghcr.io/EHotwagner/fsharp.devcontainer.templates/aspnet-fsharp
 
 # Full-featured F# development environment
-devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-full
+devcontainer templates apply -t ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-full
+```
+
+> **⚠️ Important Note**: The templates are currently being prepared for publication to the GitHub Container Registry. 
+> For now, you can use the templates locally by cloning this repository and copying the `.devcontainer` folders 
+> from `templates/src/` to your project directory.
+
+### Alternative: Using Local Templates
+
+Until published, you can use templates locally:
+
+```bash
+# Clone this repository
+git clone https://github.com/EHotwagner/FSharp.Devcontainer.Templates.git
+cd FSharp.Devcontainer.Templates
+
+# Copy template to your project
+mkdir my-project
+cp -r templates/src/fsharp-minimal/.devcontainer my-project/
+cd my-project
+
+# Open in VS Code and reopen in container
+code .
+```
+
+### Using Templates with Options
+
+Customize templates with options:
+
+```bash
+# Minimal template with specific .NET version and formatting
+devcontainer templates apply -t ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-minimal \
+  --template-args '{"dotnetVersion":"9.0","includeFantomas":true,"includePaket":true}'
+
+# ASP.NET template with database and OpenAPI
+devcontainer templates apply -t ghcr.io/EHotwagner/fsharp.devcontainer.templates/aspnet-fsharp \
+  --template-args '{"webFramework":"giraffe","includeDatabase":true,"includeOpenApi":true}'
+
+# Full template with specific project type and tools
+devcontainer templates apply -t ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-full \
+  --template-args '{"projectType":"mixed","buildSystem":"fake","packageManager":"paket"}'
 ```
 
 ### Using Individual Features
@@ -41,11 +85,11 @@ Add specific tools to your existing devcontainer:
 
 Three ready-to-use project templates:
 
-| Template | Description | Best For |
-|----------|-------------|----------|
-| **[fsharp-minimal](templates/src/fsharp-minimal/)** | Lightweight F# console app | Learning, prototyping, utilities |
-| **[aspnet-fsharp](templates/src/aspnet-fsharp/)** | F# web development with Giraffe | Web APIs, web applications |
-| **[fsharp-full](templates/src/fsharp-full/)** | Complete F# dev environment | Complex projects, teams |
+| Template | Description | Status | Best For |
+|----------|-------------|--------|----------|
+| **[fsharp-minimal](templates/src/fsharp-minimal/)** | Lightweight F# console app | ✅ Working | Learning, prototyping, utilities |
+| **[aspnet-fsharp](templates/src/aspnet-fsharp/)** | F# web development with Giraffe | ✅ Working | Web APIs, web applications |
+| **[fsharp-full](templates/src/fsharp-full/)** | Complete F# dev environment | ⚠️ Minor issues | Complex projects, teams |
 
 ### 🔧 Features
 
@@ -108,7 +152,7 @@ Enterprise-ready development environment:
 ```bash
 mkdir my-enterprise-app
 cd my-enterprise-app
-devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-full
+devcontainer templates apply -t ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-full
 
 # Generates:
 # ├── src/
@@ -129,33 +173,28 @@ devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/fs
 **Build systems**: FAKE, .NET CLI  
 **Package managers**: Paket, NuGet
 
+**⚠️ Note**: Currently has minor compilation issues that are being resolved.
+
 ## ⚙️ Template Configuration
 
-All templates support extensive customization through options:
+All templates support extensive customization through options using JSON format:
 
 ### F# Minimal Options
 ```bash
-devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-minimal \
-  --option dotnetVersion=9.0 \
-  --option includeFantomas=true \
-  --option includePaket=false
+devcontainer templates apply -t ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-minimal \
+  --template-args '{"dotnetVersion":"9.0","includeFantomas":true,"includePaket":false}'
 ```
 
 ### ASP.NET F# Options
 ```bash
-devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/aspnet-fsharp \
-  --option webFramework=giraffe \
-  --option includeDatabase=true \
-  --option includeOpenApi=true
+devcontainer templates apply -t ghcr.io/EHotwagner/fsharp.devcontainer.templates/aspnet-fsharp \
+  --template-args '{"webFramework":"giraffe","includeDatabase":true,"includeOpenApi":true}'
 ```
 
 ### F# Full Options
 ```bash
-devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-full \
-  --option projectType=mixed \
-  --option buildSystem=fake \
-  --option packageManager=paket \
-  --option includeTypeScript=true
+devcontainer templates apply -t ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-full \
+  --template-args '{"projectType":"mixed","buildSystem":"fake","packageManager":"paket","includeTypeScript":true}'
 ```
 
 ## 🔧 Feature Usage
@@ -242,7 +281,7 @@ Common feature combinations for different scenarios:
 1. **Start with a template**:
    ```bash
    mkdir my-project && cd my-project
-   devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-minimal
+   devcontainer templates apply -t ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-minimal
    ```
 
 2. **Open in VS Code**:
@@ -331,15 +370,19 @@ find features/src -name "devcontainer-feature.json" -exec dirname {} \; | \
 find . -name "*.json" -exec python3 -m json.tool {} \;
 ```
 
-### Publishing
+### Publishing (Future)
+
+Templates and features will be published to GitHub Container Registry:
 
 ```bash
-# Publish features to GitHub Container Registry
+# Publish features to GitHub Container Registry (planned)
 devcontainer features publish ./features/src/* oci://ghcr.io/EHotwagner/fsharp.devcontainer.templates/features
 
-# Publish templates to GitHub Container Registry  
+# Publish templates to GitHub Container Registry (planned)
 devcontainer templates publish ./templates/src/* oci://ghcr.io/EHotwagner/fsharp.devcontainer.templates
 ```
+
+**Current Status**: Templates reference local features and need to be updated for registry publication.
 
 ### Contributing Guidelines
 
@@ -458,11 +501,25 @@ jobs:
 
 ### Current Status
 - ✅ **8 production-ready features** with comprehensive testing
-- ✅ **3 complete templates** covering common F# scenarios
+- ✅ **2/3 templates fully working** (fsharp-minimal, aspnet-fsharp)
+- ⚠️ **1 template with minor issues** (fsharp-full - compilation errors being resolved)
 - ✅ **Local development** and testing infrastructure
 - ✅ **Documentation** and usage examples
+- ⚠️ **Templates not yet published** to GitHub Container Registry
+
+### Template Status
+- ✅ **fsharp-minimal**: Fully functional, builds and runs successfully
+- ✅ **aspnet-fsharp**: Fixed Giraffe syntax issues, now fully functional
+- ⚠️ **fsharp-full**: Structure complete, minor compilation errors in Library and Tests
+
+### Known Issues
+- Templates reference local features (`../../features/src/`) instead of published registry
+- `fsharp-full` template has Regex.IsMatch type ambiguity in Library project
+- `fsharp-full` template has xUnit attribute syntax issues in test projects
 
 ### Upcoming Features
+- 🔄 **Publish templates** to GitHub Container Registry
+- 🔄 **Fix compilation issues** in fsharp-full template
 - 🔄 **GitHub Actions** for automated testing and publishing
 - 🔄 **Additional templates**: F# libraries, microservices, desktop apps
 - 🔄 **Enhanced features**: Database tools, cloud deployment, monitoring
@@ -497,7 +554,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ```bash
 mkdir my-fsharp-project
 cd my-fsharp-project
-devcontainer templates apply ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-minimal
+devcontainer templates apply -t ghcr.io/EHotwagner/fsharp.devcontainer.templates/fsharp-minimal
 code .
 ```
 
