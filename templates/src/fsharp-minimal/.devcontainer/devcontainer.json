@@ -12,6 +12,9 @@
     },
     "../../features/src/opencode-cli": {
       "installConditions": ["${templateOption:includeOpenCode}"]
+    },
+    "../../features/src/agentic-cli": {
+      "installConditions": ["${templateOption:includeAgentic}"]
     }
   },
 

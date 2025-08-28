@@ -42,6 +42,11 @@
       "type": "boolean",
       "default": false,
       "description": "Include OpenCode AI development assistant"
+    },
+    "includeAgentic": {
+      "type": "boolean",
+      "default": true,
+      "description": "Include Agentic CLI - modular AI agent system for development workflows"
     }
   },
   "platforms": ["linux", "darwin", "windows"]
